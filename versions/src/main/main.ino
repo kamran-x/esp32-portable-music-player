@@ -17,6 +17,8 @@
 #define I2S_DOUT        9
 #define I2S_MCLK        1
 #define BUTTON_PIN      1
+#define BUTTON_PIN_4    4
+#define BUTTON_PIN_3    3
 
 // -------- OLED --------
 #define SCREEN_WIDTH    128
@@ -311,7 +313,10 @@ void setup() {
   delay(1000);
 
   pinMode(BUTTON_PIN, INPUT_PULLUP);
+  pinMode(BUTTON_PIN_3, INPUT_PULLUP);
+  pinMode(BUTTON_PIN_4, INPUT_PULLUP);
   Wire.begin(SDA_PIN, SCL_PIN);
+
 
   if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDR)) {
     Serial.println("SSD1306 not found");
@@ -327,6 +332,7 @@ void setup() {
   wm8960_init();
   drawStopped();
   Serial.println("Ready — press button to play.");
+
 }
 
 // -------- Loop --------
@@ -334,5 +340,14 @@ void loop() {
   if (buttonPressed()) {
     playWavFile("/test_48k.wav");
     drawStopped();
+  }
+  if (digitalRead(BUTTON_PIN_4) == LOW) {
+    Serial.println("Pressed button 4");
+    delay(300);
+  }
+
+  if (digitalRead(BUTTON_PIN_3) == LOW) {
+    Serial.println("Pressed button 3");
+    delay(300);
   }
 }
