@@ -115,7 +115,9 @@ void loop() {
     for(int j=0; j<4; j++)
       if(shapes[curType][curRot] & (0x8000 >> (i*4+j)))
         display.fillRect(OFFSET_X + (curX+j)*BLOCK_SIZE, (curY+i)*BLOCK_SIZE, BLOCK_SIZE-1, BLOCK_SIZE-1, WHITE);
-
+  display.setTextColor(WHITE); // Draw white text
+  display.setCursor(15,53);
+  display.println(F("TETRIS by Kamran"));
   display.display();
   delay(50);
 }
