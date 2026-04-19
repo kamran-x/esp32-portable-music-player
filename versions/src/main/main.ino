@@ -17,7 +17,7 @@
 #define I2S_DOUT        9
 #define I2S_MCLK        1
 #define BUTTON_PIN      1
-#define BUTTON_PIN_4    4
+#define BUTTON_PIN_4    1
 #define BUTTON_PIN_3    3
 
 // -------- OLED --------
