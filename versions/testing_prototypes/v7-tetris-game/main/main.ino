@@ -8,8 +8,8 @@
 
 // Your Specific Pins
 #define BTN_ROT  4  // Rotate
-#define BTN_R    1  // Right
-#define BTN_L    3  // Left
+#define BTN_R    3  // Right
+#define BTN_L    1  // Left
 #define SDA_PIN  5
 #define SCL_PIN  6
 
