@@ -7,12 +7,12 @@ extern int menuSel;
 const int DR_W         = 128;
 const int DR_H         = 64;
 const int DR_GROUND    = 54;       // y of ground line
-const int DR_DINO_X    = 16;
-const int DR_DINO_W    = 10;
+const int DR_DINO_X    = 14;
+const int DR_DINO_W    = 8;
 const int DR_DINO_H    = 14;       // standing height
-const int DR_DINO_DH   = 8;        // ducking height
+const int DR_DINO_DH   = 6;        // ducking height
 const int DR_GRAVITY   = 5;        // sub-pixel ×4
-const int DR_JUMP_V    = -22;      // sub-pixel ×4
+const int DR_JUMP_V    = -39;      // sub-pixel ×4
 const int DR_NOBS      = 4;        // max obstacles
 const int DR_NBIRDS    = 2;        // max flying obstacles
 
