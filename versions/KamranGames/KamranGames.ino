@@ -14,7 +14,7 @@
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-enum AppState { MENU, TETRIS, SNAKE, BLASTER };
+enum AppState { MENU, TETRIS, SNAKE, BLASTER, PACMAN, FLAPPY, DINO };
 AppState appState = MENU;
 
 // EEPROM addresses for hi-scores
@@ -26,10 +26,13 @@ AppState appState = MENU;
 #include "tetris.h"
 #include "snake.h"
 #include "blaster.h"
+#include "pacman.h"
+#include "flappy.h"
+#include "dino.h"
 
 // --- Menu ---
-const char* gameNames[] = { "TETRIS", "SNAKE", "BLASTER" };
-const int NUM_GAMES = 3;
+const char* gameNames[] = { "TETRIS", "SNAKE", "BLASTER", "PACMAN", "FLAPPY", "DINO"  };
+const int NUM_GAMES = 6;
 int menuSel = 0;
 uint32_t lastMenuInput = 0;
 
@@ -80,6 +83,10 @@ void menuInput() {
     if      (menuSel == 0) { tetrisStart();  appState = TETRIS;  }
     else if (menuSel == 1) { snakeStart();   appState = SNAKE;   }
     else if (menuSel == 2) { blasterStart(); appState = BLASTER; }
+    else if (menuSel == 3) { pacmanStart(); appState = PACMAN; }
+    else if (menuSel == 4) { flappyStart(); appState = FLAPPY; }
+    else if (menuSel == 5) { dinoStart(); appState = DINO; }
+
   }
 }
 
@@ -94,9 +101,12 @@ void setup() {
 
 void loop() {
   switch (appState) {
-    case MENU:    menuInput(); drawMenu();    break;
-    case TETRIS:  tetrisLoop();              break;
-    case SNAKE:   snakeLoop();               break;
-    case BLASTER: blasterLoop();             break;
+    case MENU:    menuInput(); drawMenu(); break;
+    case TETRIS:  tetrisLoop(); break;
+    case SNAKE:   snakeLoop(); break;
+    case BLASTER: blasterLoop(); break;
+    case PACMAN: pacmanLoop(); break;
+    case FLAPPY: flappyLoop(); break;
+    case DINO: dinoLoop(); break;
   }
 }

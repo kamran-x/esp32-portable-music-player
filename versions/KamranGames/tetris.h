@@ -78,7 +78,7 @@ void tetrisLoop() {
     display.setCursor(4,  40); display.print(F("C-btn > Main menu"));
     display.setCursor(4,  52); display.print(F("TETRIS by Kamran"));
     display.display();
-    delay(550);
+    delay(340);
 
     if (digitalRead(BTN_R) == LOW)   { tetrisStart(); delay(300); }
     if (digitalRead(BTN_ROT) == LOW) { appState = MENU; menuSel = 0; delay(300); }

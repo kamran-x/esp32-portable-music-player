@@ -78,7 +78,7 @@ void blasterLoop() {
     display.setCursor(4,  52); display.print(F("BLASTER by Kamran"));
 
     display.display();
-    delay(550);
+    delay(300);
     if (digitalRead(BTN_R) == LOW)   { blasterStart(); delay(300); }
     if (digitalRead(BTN_ROT) == LOW) { appState = MENU; menuSel = 0; delay(300); }
     return;
