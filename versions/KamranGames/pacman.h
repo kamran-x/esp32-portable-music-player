@@ -239,13 +239,13 @@ void pacmanLoop() {
     display.print(pmWon ? F("YOU WIN!") : F("GAME OVER"));
     display.setTextSize(1);
     display.setCursor(4, 28); display.print(F("Score: ")); display.print(pmScore);
-    display.setCursor(4, 38); display.print(F("R-btn > Play again"));
-    display.setCursor(4, 48); display.print(F("C-btn > Main menu"));
+    display.setCursor(4, 38); display.print(F("Right = Replay"));
+    display.setCursor(4, 48); display.print(F("Left = Exit"));
     display.setCursor(4, 58); display.print(F("PACMAN by Kamran"));
     display.display();
-    delay(400);
+    delay(100);
     if (digitalRead(BTN_R)   == LOW) { pacmanStart(); delay(300); }
-    if (digitalRead(BTN_ROT) == LOW) { appState = MENU; menuSel = 0; delay(300); }
+    if (digitalRead(BTN_L) == LOW) { appState = MENU; menuSel = 0; delay(300); }
     return;
   }
 

@@ -73,14 +73,14 @@ void blasterLoop() {
     display.setTextSize(2);
     display.setCursor(12, 5); display.print(F("GAME OVER"));
     display.setTextSize(1);
-    display.setCursor(4,  28); display.print(F("R-btn > Play again"));
-    display.setCursor(4,  40); display.print(F("C-btn > Main menu"));
+    display.setCursor(4,  28); display.print(F("Right = Replay"));
+    display.setCursor(4,  40); display.print(F("Left = Exit"));
     display.setCursor(4,  52); display.print(F("BLASTER by Kamran"));
 
     display.display();
-    delay(300);
+    delay(100);
     if (digitalRead(BTN_R) == LOW)   { blasterStart(); delay(300); }
-    if (digitalRead(BTN_ROT) == LOW) { appState = MENU; menuSel = 0; delay(300); }
+    if (digitalRead(BTN_L) == LOW) { appState = MENU; menuSel = 0; delay(300); }
     return;
   }
 
@@ -161,6 +161,6 @@ void blasterLoop() {
   display.setTextColor(WHITE); display.setTextSize(1);
   display.setCursor(50,2);
   for(int i=0;i<bLives;i++) display.print(F("*"));
-  display.setCursor(90,2); display.print(F("W:")); display.print(bWave);
+  display.setCursor(90,2); display.print(F("L:")); display.print(bWave);
   display.display();
 }

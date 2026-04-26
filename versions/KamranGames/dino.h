@@ -185,12 +185,12 @@ void dinoLoop() {
     display.setTextSize(1);
     display.setCursor(4, 26); display.print(F("Score: ")); display.print(drScore);
     display.setCursor(4, 36); display.print(F("Best:  ")); display.print(drBestScore);
-    display.setCursor(4, 46); display.print(F("R-btn > Play again"));
-    display.setCursor(4, 56); display.print(F("C-btn > Main menu"));
+    display.setCursor(4, 46); display.print(F("Right = Replay"));
+    display.setCursor(4, 56); display.print(F("Left = Exit"));
     display.display();
-    delay(400);
+    delay(100);
     if (digitalRead(BTN_R)   == LOW) { dinoStart(); delay(300); }
-    if (digitalRead(BTN_ROT) == LOW) { appState = MENU; menuSel = 0; delay(300); }
+    if (digitalRead(BTN_L) == LOW) { appState = MENU; menuSel = 0; delay(300); }
     return;
   }
 

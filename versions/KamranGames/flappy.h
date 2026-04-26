@@ -104,12 +104,12 @@ void flappyLoop() {
     display.setTextSize(1);
     display.setCursor(4, 26); display.print(F("Score: ")); display.print(fbScore);
     display.setCursor(4, 36); display.print(F("Best:  ")); display.print(fbBestScore);
-    display.setCursor(4, 46); display.print(F("R-btn > Play again"));
-    display.setCursor(4, 56); display.print(F("C-btn > Main menu"));
+    display.setCursor(4, 46); display.print(F("Left = Exit"));
+    display.setCursor(4, 56); display.print(F("To leave, press the left button"));
     display.display();
-    delay(400);
+    delay(100);
     if (digitalRead(BTN_R)   == LOW) { flappyStart(); delay(300); }
-    if (digitalRead(BTN_ROT) == LOW) { appState = MENU; menuSel = 0; delay(300); }
+    if (digitalRead(BTN_L) == LOW) { appState = MENU; menuSel = 0; delay(300); }
     return;
   }
 
