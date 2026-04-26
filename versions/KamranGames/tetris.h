@@ -13,6 +13,8 @@ const int OFFSET_X = 40;
 
 bool field[COLS][ROWS] = {0};
 int curX = 4, curY = 0, curRot = 0, curType = 0;
+int nextType = 0;
+
 uint32_t lastDrop = 0;
 bool tGameOver = false;
 
@@ -20,10 +22,9 @@ bool tGameOver = false;
 int linesClearedTotal = 0;
 int dropSpeed = 500;
 
-// EXIT SYSTEM
-int exitPressCount = 0;
-bool lastLeftState = HIGH;
-uint32_t exitLastPressTime = 0;
+extern int exitPressCount;
+extern bool lastLeftState;
+extern uint32_t exitLastPressTime;
 
 const uint16_t shapes[7][4] = {
   {0x0F00, 0x4444, 0x0F00, 0x4444},
@@ -102,7 +103,10 @@ void lockPiece() {
 void spawn() {
   curX = 3;
   curY = 0;
-  curType = random(7);
+
+  curType = nextType;
+  nextType = random(7);
+
   curRot = 0;
 
   if (checkCollision(curX, curY, curRot)) {
@@ -119,9 +123,11 @@ void tetrisStart() {
   linesClearedTotal = 0;
   dropSpeed = 500;
 
-  exitPressCount = 0;
-  lastLeftState = HIGH;
-  exitLastPressTime = 0;
+  extern int exitPressCount;
+  extern bool lastLeftState;
+  extern uint32_t exitLastPressTime;
+
+  nextType = random(7);
 
   spawn();
 }
@@ -131,10 +137,32 @@ void drawExitProgress() {
   int y = 10;
 
   for (int i = 0; i < 5; i++) {
-    if (i < exitPressCount) {
+    if (i < exitPressCount)
       display.fillRect(x, y + i * 6, 4, 4, WHITE);
-    } else {
+    else
       display.drawRect(x, y + i * 6, 4, 4, WHITE);
+  }
+}
+
+void drawNextPiece() {
+  int previewX = OFFSET_X - 20;
+  int previewY = 10;
+
+  display.setTextSize(1);
+  display.setCursor(previewX, previewY - 8);
+  display.print("N");
+
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      if (shapes[nextType][0] & (0x8000 >> (i * 4 + j))) {
+        display.fillRect(
+          previewX + j * 3,
+          previewY + i * 3,
+          2,
+          2,
+          WHITE
+        );
+      }
     }
   }
 }
@@ -172,12 +200,12 @@ void tetrisLoop() {
     return;
   }
 
-  // TIMEOUT RESET (1.5 sec)
+  // timeout reset
   if (exitPressCount > 0 && millis() - exitLastPressTime > 1500) {
     exitPressCount = 0;
   }
 
-  // EXIT LOGIC (LEFT presses)
+  // exit logic
   bool currentLeft = digitalRead(BTN_L);
 
   if (lastLeftState == HIGH && currentLeft == LOW) {
@@ -193,7 +221,6 @@ void tetrisLoop() {
     }
   }
 
-  // reset if other buttons pressed
   if (digitalRead(BTN_R) == LOW || digitalRead(BTN_ROT) == LOW) {
     exitPressCount = 0;
   }
@@ -276,8 +303,10 @@ void tetrisLoop() {
   display.print(linesClearedTotal);
 
   display.setCursor(15, 53);
-  display.print(F("TETRIS by Kamran"));
+  display.print(F("TETRIS"));
 
+  // side UI
+  drawNextPiece();
   drawExitProgress();
 
   display.display();

@@ -13,8 +13,13 @@
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-enum AppState { MENU, TETRIS, SNAKE, BLASTER, PACMAN, FLAPPY, DINO };
+enum AppState { MENU, TETRIS, SNAKE, BLASTER, PACMAN, FLAPPY, DINO, BREAKOUT, MARIO };
 AppState appState = MENU;
+
+// --- Shared exit system ---
+int exitPressCount = 0;
+bool lastLeftState = HIGH;
+uint32_t exitLastPressTime = 0;
 
 // Include games
 #include "tetris.h"
@@ -23,10 +28,12 @@ AppState appState = MENU;
 #include "pacman.h"
 #include "flappy.h"
 #include "dino.h"
+#include "breakout.h"
+#include "mario.h"
 
 // --- Menu ---
-const char* gameNames[] = { "TETRIS", "SNAKE", "BLASTER", "PACMAN", "FLAPPY", "DINO" };
-const int NUM_GAMES = 6;
+const char* gameNames[] = { "TETRIS", "SNAKE", "BLASTER", "PACMAN", "FLAPPY", "DINO", "BREAKOUT", "MARIO" };
+const int NUM_GAMES = 8;
 
 int menuSel = 0;
 uint32_t lastMenuInput = 0;
@@ -102,6 +109,9 @@ void menuInput() {
     else if (menuSel == 3) { pacmanStart();  appState = PACMAN; }
     else if (menuSel == 4) { flappyStart();  appState = FLAPPY; }
     else if (menuSel == 5) { dinoStart();    appState = DINO; }
+    else if (menuSel == 6) { breakoutStart(); appState = BREAKOUT; }
+    else if (menuSel == 7) { marioStart(); appState = MARIO; }
+
   }
 }
 
@@ -127,6 +137,9 @@ void loop() {
     case PACMAN:  pacmanLoop(); break;
     case FLAPPY:  flappyLoop(); break;
     case DINO:    dinoLoop(); break;
+    case BREAKOUT: breakoutLoop(); break;
+    case MARIO: marioLoop(); break;
+
   }
 }
 
